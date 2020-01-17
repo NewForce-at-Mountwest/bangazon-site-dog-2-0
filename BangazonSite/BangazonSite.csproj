@@ -8,6 +8,10 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20200116104841_InitialMigration.cs" />
     <Compile Remove="Data\Migrations\20200116104841_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200117151917_TableSetup.cs" />
+    <Compile Remove="Migrations\20200117151917_TableSetup.Designer.cs" />
+    <Compile Remove="Migrations\20200117162242_FixIdentityId.cs" />
+    <Compile Remove="Migrations\20200117162242_FixIdentityId.Designer.cs" />
   </ItemGroup>
 
 
