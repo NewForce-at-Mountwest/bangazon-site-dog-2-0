@@ -32,7 +32,7 @@ namespace BangazonSite.Controllers
         {
             var user = await GetCurrentUserAsync();
 
-            var applicationDbContext = _context.PaymentTypes.Include(p => p.ApplicationUser).Where(p => p.ApplicationUser == user);
+            var applicationDbContext = _context.PaymentTypes.Where(p => p.ApplicationUser == user);
             
             return View(await applicationDbContext.ToListAsync());
         }
@@ -59,6 +59,7 @@ namespace BangazonSite.Controllers
         // GET: PaymentTypes/Create
         public IActionResult Create()
         {
+
             ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id");
             return View();
         }
@@ -70,6 +71,10 @@ namespace BangazonSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,AccountNumber,Name,ApplicationUserId")] PaymentType paymentType)
         {
+            // Remove the userId from the model validation because it is
+            // not information posted in the form
+            ModelState.Remove("ApplicationUserId");
+
             if (ModelState.IsValid)
             {
                 var user = await GetCurrentUserAsync();
