@@ -1,0 +1,29 @@
+﻿@model BangazonSite.Models.Order
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>My Order</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <ul class="list-unstyled">
+                @foreach (OrderProduct orderProduct in Model.OrderProducts)
+                {
+                    <li>
+                        @Html.DisplayFor(model => orderProduct.Product.Title)  @Html.DisplayFor(model => orderProduct.Product.Quantity)  @Html.DisplayFor(model => orderProduct.Product.Price)
+                    </li>
+                }
+            </ul>
+        </dt>
+    </dl>
+    <button class= "btn btn-primary">Checkout</button>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
