@@ -44,7 +44,11 @@ namespace BangazonSite.Models
 
         [Display(Name = "Local Delivery")]
         public bool LocalDelivery { get; set; }
+        [Required]
+        public int ProductTypeId { get; set; }
+        public ProductType ProductType { get; set; }
 
+        public List<OrderProduct> OrderProducts { get; set; } = new List<OrderProduct>();
 
         
 

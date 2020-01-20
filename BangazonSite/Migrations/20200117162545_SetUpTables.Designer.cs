@@ -4,14 +4,16 @@ using BangazonSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BangazonSite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200117162545_SetUpTables")]
+    partial class SetUpTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -378,27 +380,6 @@ namespace BangazonSite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("ApplicationUser");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "16c2fd97-4595-49ff-8c90-1ddb198db17c",
-                            Email = "admin@admin.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@ADMIN.COM",
-                            NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAELNONgSVHnr61ioS0+C9M4WNFp23H++W4IOQ3flBXctToFRBBwzO4q8MWIZcaQLi3w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
-                            TwoFactorEnabled = false,
-                            UserName = "admin@admin.com",
-                            FirstName = "admin",
-                            LastName = "admin",
-                            StreetAddress = "123 Infinity Way"
-                        });
                 });
 
             modelBuilder.Entity("BangazonSite.Models.Order", b =>
