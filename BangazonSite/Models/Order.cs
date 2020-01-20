@@ -9,6 +9,7 @@ namespace BangazonSite.Models
 {
     public class Order
     {
+        [Display(Name ="Order Number")]
         public int Id { get; set; }
         public int? PaymentTypeId { get; set; }
         [Required]
