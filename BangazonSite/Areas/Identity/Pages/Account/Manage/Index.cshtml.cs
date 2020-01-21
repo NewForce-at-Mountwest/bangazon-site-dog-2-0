@@ -55,7 +55,10 @@ namespace BangazonSite.Areas.Identity.Pages.Account.Manage
 
             Input = new InputModel
             {
-                PhoneNumber = phoneNumber
+                PhoneNumber = phoneNumber,
+               FirstName = user.FirstName,
+               LastName = user.LastName,
+               StreetAddress = user.StreetAddress
             };
         }
 
@@ -94,6 +97,21 @@ namespace BangazonSite.Areas.Identity.Pages.Account.Manage
                     var userId = await _userManager.GetUserIdAsync(user);
                     throw new InvalidOperationException($"Unexpected error occurred setting phone number for user with ID '{userId}'.");
                 }
+            }
+
+            //private method to return first name info
+            if (Input.FirstName != user.FirstName)
+            {
+                user.FirstName = Input.FirstName;
+            }
+
+            if (Input.LastName != user.LastName)
+            {
+                user.LastName = Input.LastName;
+            }
+            if (Input.StreetAddress != user.StreetAddress)
+            {
+                user.StreetAddress = Input.StreetAddress;
             }
 
             await _signInManager.RefreshSignInAsync(user);
