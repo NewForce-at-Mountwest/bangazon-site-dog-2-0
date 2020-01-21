@@ -1,11 +1,10 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Profile";
     ViewData["ActivePage"] = ManageNavPages.Index;
 }
 
-<h4>@ViewData["Title"]</h4>
+<h3>@ViewData["Title"]</h3>
 <partial name="_StatusMessage" model="Model.StatusMessage" />
 <div class="row">
     <div class="col-md-6">
@@ -17,7 +16,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Input.FirstName"></label>
-                <input asp-for="Input.FirstName" class="form-control"disabled />
+                <input asp-for="Input.FirstName" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="Input.LastName"></label>
@@ -39,7 +38,10 @@
             </div>
             <div>
                 <a asp-controller="PaymentTypes" asp-action="Index">My Payment Options</a>
-                            </div>
+            </div>
+            <div>
+                <a asp-controller="Orders" asp-action="Index">Order History</a>
+            </div>
             <button id="update-profile-button" type="submit" class="btn btn-primary">Save</button>
         </form>
     </div>
