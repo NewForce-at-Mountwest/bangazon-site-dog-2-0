@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using BangazonSite.Data;
 using BangazonSite.Models;
 using Microsoft.AspNetCore.Identity;
+using BangazonSite.Models.ViewModels;
 
 namespace BangazonSite.Controllers
 {
@@ -57,43 +58,45 @@ namespace BangazonSite.Controllers
         }
 
         // GET: Products/Create
-        public async Task<IActionResult> Create()
+        public IActionResult Create(CreateStudentViewModel viewmodel)
         {
-            //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id");
+            CreateProductViewModel vm = new CreateProductViewModel();
+            vm.ProductType = _context.ProductTypes.Select(pt => new SelectListItem
+            {
+                Value = pt.Id.ToString(),
+                Text = pt.Name
+            }).ToList();
 
-            
-
-            return View();
+            vm.ProductType.Insert(0, new SelectListItem()
+            {
+                Value = "0",
+                Text = "Please choose a product type"
+            });
+            return View(vm);
         }
+
 
         // POST: Products/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,DateCreated,Description,Title,Price,Quantity,LocalDelivery")] Product product)
+        public async Task<IActionResult> Create(CreateProductViewModel viewmodel)
         {
 
-           ModelState.Remove("UserId");
+           ModelState.Remove("Product.UserId");
             
             if (ModelState.IsValid)
             {
                 ApplicationUser loggedInUser = await GetCurrentUserAsync();
-                product.UserId = loggedInUser.Id;
-                ////insert date here
-                //// Set the parameter to the value
+                viewmodel.Product.UserId = loggedInUser.Id;
                 
-
-
-                ////nameParameter.Value = date;
-                //product.DateCreated = date;
-                //string sqlFormattedDate = product.DateCreated.ToString("yyyy-MM-dd HH:mm:ss");
-                _context.Add(product);
+                _context.Add(viewmodel.Product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Details));
             }
             //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", product.UserId);
-            return View(product);
+            return View(viewmodel);
         }
         
 
