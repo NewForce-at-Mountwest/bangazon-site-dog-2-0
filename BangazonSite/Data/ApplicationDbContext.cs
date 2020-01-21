@@ -101,7 +101,7 @@ namespace BangazonSite.Data
             //    Id = 2,
             //    PaymentTypeId = null,
             //    ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff"
-            //});
+            //};
 
             modelBuilder.Entity<OrderProduct>().HasData(
             new OrderProduct()
