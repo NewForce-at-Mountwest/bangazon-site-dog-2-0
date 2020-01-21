@@ -100,11 +100,7 @@ namespace BangazonSite.Areas.Identity.Pages.Account.Manage
             }
 
             //private method to return first name info
-            if (Input.FirstName != user.FirstName)
-            {
-                user.FirstName = Input.FirstName;
-            }
-
+           
             if (Input.LastName != user.LastName)
             {
                 user.LastName = Input.LastName;
@@ -113,6 +109,8 @@ namespace BangazonSite.Areas.Identity.Pages.Account.Manage
             {
                 user.StreetAddress = Input.StreetAddress;
             }
+
+            await _userManager.UpdateAsync(user);
 
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
