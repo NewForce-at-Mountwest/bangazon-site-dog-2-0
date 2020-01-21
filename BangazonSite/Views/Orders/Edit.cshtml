@@ -1,4 +1,4 @@
-﻿@model BangazonSite.Models.Order
+﻿@model BangazonSite.Models.ViewModels.OrderEditViewModel
 
 @{
     ViewData["Title"] = "Edit";
@@ -12,16 +12,11 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+            <input type="hidden" asp-for="PaymentType.Id" />
             <div class="form-group">
-                <label asp-for="PaymentTypeId" class="control-label"></label>
-                <select asp-for="PaymentTypeId" class="form-control" asp-items="ViewBag.PaymentTypeId"></select>
-                <span asp-validation-for="PaymentTypeId" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ApplicationUserId" class="control-label"></label>
-                <select asp-for="ApplicationUserId" class="form-control" asp-items="ViewBag.ApplicationUserId"></select>
-                <span asp-validation-for="ApplicationUserId" class="text-danger"></span>
+                <label asp-for="PaymentType.Id" class="control-label">Select a Payment Type</label>
+                <select asp-for="PaymentType.Name" class="form-control" asp-items="Model.PaymentTypes"></select>
+                <span asp-validation-for="PaymentType.Id" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />

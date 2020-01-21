@@ -7,16 +7,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using BangazonSite.Data;
 using BangazonSite.Models;
+using BangazonSite.Models.ViewModels;
+using Microsoft.AspNetCore.Identity;
 
 namespace BangazonSite.Controllers
 {
     public class OrdersController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public OrdersController(ApplicationDbContext context)
+        public OrdersController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Orders
@@ -77,19 +81,19 @@ namespace BangazonSite.Controllers
         // GET: Orders/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-            if (id == null)
+            OrderEditViewModel vm = new OrderEditViewModel();
+            vm.PaymentTypes = _context.Orders.Select(o => new SelectListItem
             {
-                return NotFound();
-            }
+                Value = o.PaymentType.Id.ToString(),
+                Text = o.PaymentType.Name
+            }).ToList();
 
-            var order = await _context.Orders.FindAsync(id);
-            if (order == null)
+            vm.PaymentTypes.Insert(0, new SelectListItem()
             {
-                return NotFound();
-            }
-            ViewData["PaymentTypeId"] = new SelectList(_context.PaymentTypes, "Id", "ApplicationUserId", order.PaymentTypeId);
-            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id", order.ApplicationUserId);
-            return View(order);
+                Value = "0",
+                Text = "Please Choose a Payment Type"
+            });
+            return View(vm);
         }
 
         // POST: Orders/Edit/5
@@ -97,37 +101,33 @@ namespace BangazonSite.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PaymentTypeId,ApplicationUserId")] Order order)
+        public async Task<IActionResult> Edit(OrderEditViewModel vm)
         {
-            if (id != order.Id)
-            {
-                return NotFound();
-            }
-
             if (ModelState.IsValid)
             {
-                try
-                {
-                    _context.Update(order);
+                
+               
+                    //remove any studentexercises from context by id
+                    // _context.Student.Remove(StudentExercises);
+                    //add any student exercises to context
+                    _context.Add(vm.PaymentTypes);
+                    _context.Update(vm.PaymentType);
                     await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!OrderExists(order.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
+                
+               
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["PaymentTypeId"] = new SelectList(_context.PaymentTypes, "Id", "ApplicationUserId", order.PaymentTypeId);
-            ViewData["ApplicationUserId"] = new SelectList(_context.Users, "Id", "Id", order.ApplicationUserId);
-            return View(order);
+            ViewData["Payment Type Id"] = new SelectList(_context.Orders, "Id", "Id", vm.PaymentType.Id);
+            ViewData["Payment Type Name"] = new SelectList(_context.Orders, "Id", "Id", vm.PaymentType.Name);
+            return View(vm.PaymentType);
         }
+    
+
+
+        private Task<ApplicationUser> GetCurrentUserAsync() =>
+        
+            _userManager.GetUserAsync(HttpContext.User);
+        
 
         // GET: Orders/Delete/5
         public async Task<IActionResult> Delete(int? id)

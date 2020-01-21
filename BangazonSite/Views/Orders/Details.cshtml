@@ -1,34 +1,39 @@
 ﻿@model BangazonSite.Models.Order
 
 @{
-    ViewData["Title"] = "Order";
+    ViewData["Title"] = "";
 }
 
-<h1>Details</h1>
+<h1>Order @Html.DisplayFor(model => model.Id)</h1>
 
-<div>
-    <h4>My Order</h4>
-    <hr />
-    <dl class="row">
-    <dt class="col-sm-2">
-        @Html.DisplayNameFor(model => model.OrderProducts)
-    </dt> 
-    </dl>
-    <dl class="row">
-    <dt class="col-sm-2">
-        <ul class="list-unstyled">
-            @foreach (OrderProduct orderProduct in Model.OrderProducts)
+<Table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">
+        @Html.DisplayNameFor(model => model.OrderProducts) 
+        </th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+    </tr>      
+    </thead>
+    <tbody>
+                
+        @foreach (OrderProduct orderProduct in Model.OrderProducts)
+        {
+            if (Model.PaymentType == null)
             {
-                <li>
-                    @Html.DisplayFor(model => orderProduct.Product.Title)  @Html.DisplayFor(model => orderProduct.Product.Quantity)  @Html.DisplayFor(model => orderProduct.Product.Price)
-                </li>
+                <tr>    
+                <td>@Html.DisplayFor(model => orderProduct.Product.Title)</td>
+                <td>@Html.DisplayFor(model => orderProduct.Product.Quantity)</td>
+                <td>@Html.DisplayFor(model => orderProduct.Product.Price)</td>
+                </tr>
             }
-        </ul>
-    </dt>
-</dl>
-    <button class= "btn btn-primary">Checkout</button>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+            else { }
+        }
+        </tbody>
+</Table>
+<a asp-action="Edit" asp-route-id="@Model.Id">
+    <button class="btn btn-primary">Checkout</button></a>
+    <div>|
     <a asp-action="Index">Back to List</a>
 </div>
