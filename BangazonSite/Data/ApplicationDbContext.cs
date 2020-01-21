@@ -50,6 +50,10 @@ namespace BangazonSite.Data
             modelBuilder.Entity<Product>().HasMany(product => product.OrderProducts)
                        .WithOne(orderProducts => orderProducts.Product)
                        .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Product>()
+                .Property(D => D.DateCreated)
+                .HasDefaultValueSql("GETDATE()");
         }
         
 

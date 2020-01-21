@@ -80,7 +80,14 @@ namespace BangazonSite.Controllers
             {
                 ApplicationUser loggedInUser = await GetCurrentUserAsync();
                 product.UserId = loggedInUser.Id;
-                //insert date here
+                ////insert date here
+                //// Set the parameter to the value
+                
+
+
+                ////nameParameter.Value = date;
+                //product.DateCreated = date;
+                //string sqlFormattedDate = product.DateCreated.ToString("yyyy-MM-dd HH:mm:ss");
                 _context.Add(product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Details));

@@ -8,8 +8,9 @@ namespace BangazonSite.Models
 {
     public class CreateProductViewModel
     {
+        public List<SelectListItem> ProductType { get; set; }
+        public Product Product { get; set; }
 
 
-        public string UserId { get; set; }
     }
 }
