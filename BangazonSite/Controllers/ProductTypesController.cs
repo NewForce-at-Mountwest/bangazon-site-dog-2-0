@@ -22,17 +22,19 @@ namespace BangazonSite.Controllers
 
         // GET: ProductTypes
         public async Task<IActionResult> Index()
-        {//instantiate view model here
-            IndexGroupProductsViewModel vm = new IndexGroupProductsViewModel();
+        {
 
             //include products with product type
             var categories = _context.ProductTypes.Include(p => p.Products);
+            //instantiate view model here
+            IndexGroupProductsViewModel vm = new IndexGroupProductsViewModel();
+
             //map over categories with .Select
-           categories.Select(gp => new GroupedProducts
+            categories.Select(gp => new GroupedProducts
             {
-               //CategoryName= categories.Name,
-               //NumberofProducts = gp.Count(),
-               //TopProducts = gp.Take(3)
+              // CategoryName= vm.categories.Name,
+               NumberofProducts = vm.GroupedProducts.Count(),
+            //   TopProducts = vm.GroupedProducts.Take(3)
            }).ToList();
             
             // new grouped product created from map then assign custom class properties to grouped products
