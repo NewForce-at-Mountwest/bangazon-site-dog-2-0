@@ -36,7 +36,11 @@
                 <label asp-for="Product.ProductTypeId" class="control-label"></label>
                 <select asp-for="Product.ProductTypeId" class="form-control" asp-items="@Model.ProductType"></select>
             </div>
-
+            <div class="form-group">
+                <label asp-for="Product.City" class="control-label"></label>
+                <input asp-for="Product.City" class="form-control" />
+                <span asp-validation-for="Product.City" class="text-danger"></span>
+            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Product.LocalDelivery" /> @Html.DisplayNameFor(model => model.Product.LocalDelivery)
