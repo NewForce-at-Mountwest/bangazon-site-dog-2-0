@@ -52,8 +52,10 @@ namespace BangazonSite.Models
 
         
 
-        
-       
+
+
+
+
         // Need to add: relationships between ProductType and Product and relationships between OrderProducts and Products
 
 
