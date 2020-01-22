@@ -47,34 +47,8 @@ namespace BangazonSite.Controllers
             }
             return View(products);
         }
-
-
-
-        //// GET: Students
-        //public async Task<IActionResult> Index(string searchQuery)
-        //{
-
-        //    ApplicationUser loggedInUser = await GetCurrentUserAsync();
-        //    List<Student> students = await _context.Student.Include(s => s.Cohort).Where(s => s.User == loggedInUser).ToListAsync();
-
-        //    if (searchQuery != null)
-        //    {
-        //        students = students.Where(student => student.FirstName.Contains(searchQuery) || student.LastName.Contains(searchQuery)).ToList();
-        //    }
-
-
-        //    return View(students);
-        //}
-
-
-
-
-
-
-
-
-
-
+        
+                                    
         // GET: Products/Details/5
         public async Task<IActionResult> Details(int? id)
         {
