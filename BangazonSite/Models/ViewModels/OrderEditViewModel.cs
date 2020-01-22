@@ -11,5 +11,6 @@ namespace BangazonSite.Models.ViewModels
     {
         public List<SelectListItem> PaymentTypes { get; set; }
         public PaymentType PaymentType { get; set; }
+        public Order Order { get; set; }
     }
 }

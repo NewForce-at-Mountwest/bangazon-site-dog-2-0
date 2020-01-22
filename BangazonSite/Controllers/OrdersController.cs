@@ -82,6 +82,7 @@ namespace BangazonSite.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             OrderEditViewModel vm = new OrderEditViewModel();
+            vm.Order = await _context.Orders.FirstOrDefaultAsync(o => o.Id == id);
             vm.PaymentTypes = _context.Orders.Where(o => o.PaymentType.Name != null).Select(o => new SelectListItem
             {
                 Value = o.PaymentType.Id.ToString(),
@@ -103,15 +104,19 @@ namespace BangazonSite.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(OrderEditViewModel vm)
         {
+            ModelState.Remove("Order.Id");
+            ModelState.Remove("Order.ApplicationUserId");
+            ModelState.Remove("PaymentType.Id");
+            ModelState.Remove("PaymentType.ApplicationUserId");
             if (ModelState.IsValid)
             {
+
+
+                //remove any studentexercises from context by id
+                // _context.Student.Remove(StudentExercises);
+                //add any student exercises to context
                 
-               
-                    //remove any studentexercises from context by id
-                    // _context.Student.Remove(StudentExercises);
-                    //add any student exercises to context
-                    _context.Add(vm.PaymentTypes);
-                    _context.Update(vm.PaymentType.Id);
+                    _context.Update(vm.Order);
                     await _context.SaveChangesAsync();
                 
                
