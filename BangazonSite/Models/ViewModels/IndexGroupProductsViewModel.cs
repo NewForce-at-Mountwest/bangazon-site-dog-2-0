@@ -7,6 +7,6 @@ namespace BangazonSite.Models.ViewModels
 {
     public class IndexGroupProductsViewModel
     {
-       public List<GroupedProducts> GroupedProducts { get; set; }
+        public List<GroupedProducts> GroupedProducts { get; set; } = new List<GroupedProducts>();
     }
 }

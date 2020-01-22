@@ -1,4 +1,4 @@
-﻿@model IEnumerable<BangazonSite.Models.ViewModels.IndexGroupProductsViewModel>
+﻿@model IEnumerable<BangazonSite.Models.ProductType>
 
 @{
     ViewData["Title"] = "Index";
@@ -22,10 +22,8 @@
 @foreach (var item in Model) {
         <tr>
             <td>
-                @*@Html.DisplayFor(modelItem => PropertyType.Name)*@
-                <ul>
-                    <li>product 1 -will be a hyperlink to Product Detail Page</li>
-                </ul>
+                @Html.DisplayFor(modelItem => item.Name)
+                
             </td>
             <td>
                 @*Show quantity here*@

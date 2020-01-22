@@ -86,13 +86,13 @@ namespace BangazonSite.Controllers
         public async Task<IActionResult> Create(CreateProductViewModel viewmodel)
         {
 
-           ModelState.Remove("Product.UserId");
-            
+            ModelState.Remove("Product.UserId");
+
             if (ModelState.IsValid)
             {
                 ApplicationUser loggedInUser = await GetCurrentUserAsync();
                 viewmodel.Product.UserId = loggedInUser.Id;
-                
+
                 _context.Add(viewmodel.Product);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Details), new { viewmodel.Product.Id });
@@ -100,7 +100,7 @@ namespace BangazonSite.Controllers
             //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", product.UserId);
             return View(viewmodel);
         }
-        
+
 
         // GET: Products/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -188,6 +188,30 @@ namespace BangazonSite.Controllers
         private bool ProductExists(int id)
         {
             return _context.Products.Any(e => e.Id == id);
+        }
+
+        // method to see products by category
+        public async Task<IActionResult> Types()
+        {
+            IndexGroupProductsViewModel vm = new IndexGroupProductsViewModel();
+            //list of product types
+            var productTypes = _context.ProductTypes
+            //include the products
+            .Include(p => p.Products).ToList();
+            //I have alist of product types, need to convert to grouped list
+            var groupedProducts = new List<GroupedProducts>();
+            foreach (ProductType p in productTypes)
+            {
+                groupedProducts.Add(new GroupedProducts()
+                {
+                    CategoryName = p.Name,
+                    NumberofProducts = p.Products.Count(),
+                    TopProducts = p.Products.Take(3).ToList()
+                });
+            }
+
+            vm.GroupedProducts = groupedProducts;
+            return View(vm);
         }
     }
 }
