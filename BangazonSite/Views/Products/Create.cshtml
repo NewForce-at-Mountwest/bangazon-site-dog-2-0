@@ -37,16 +37,6 @@
                 <select asp-for="Product.ProductTypeId" class="form-control" asp-items="@Model.ProductType"></select>
             </div>
 
-            @*<div class="form-group">
-            <label asp-for="City" class="control-label"></label>
-            <input asp-for="City" class="form-control" />
-            <span asp-validation-for="City" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="ProductImage" class="control-label"></label>
-            <input asp-for="ProductImage" class="form-control" />
-            <span asp-validation-for="ProductImage" class="text-danger"></span>
-        </div>*@
             <div class="form-group form-check">
                 <label class="form-check-label">
                     <input class="form-check-input" asp-for="Product.LocalDelivery" /> @Html.DisplayNameFor(model => model.Product.LocalDelivery)
