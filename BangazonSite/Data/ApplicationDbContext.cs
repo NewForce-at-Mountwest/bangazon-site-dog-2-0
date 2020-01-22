@@ -46,7 +46,7 @@ namespace BangazonSite.Data
             modelBuilder.Entity<PaymentType>().HasMany(paymentType => paymentType.Orders)
                         .WithOne(orders => orders.PaymentType)
                         .OnDelete(DeleteBehavior.Restrict);
-            
+
             //modelBuilder.Entity<Product>().HasMany(product => product.OrderProducts)
             //           .WithOne(orderProducts => orderProducts.Product)
             //           .OnDelete(DeleteBehavior.Restrict);
@@ -54,6 +54,9 @@ namespace BangazonSite.Data
             modelBuilder.Entity<Order>().HasMany(order => order.OrderProducts)
                          .WithOne(orderProducts => orderProducts.Order)
                          .OnDelete(DeleteBehavior.Restrict);
+            modelBuilder.Entity<Product>().HasMany(product => product.OrderProducts)
+                       .WithOne(orderProducts => orderProducts.Product)
+                       .OnDelete(DeleteBehavior.Restrict);
 
             modelBuilder.Entity<Product>()
                 .Property(D => D.DateCreated)
@@ -111,7 +114,7 @@ namespace BangazonSite.Data
                 ProductId = 1
             });
         }
-        
+
 
 
     }

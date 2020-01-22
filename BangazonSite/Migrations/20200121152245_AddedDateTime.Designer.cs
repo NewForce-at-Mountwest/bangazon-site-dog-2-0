@@ -4,14 +4,16 @@ using BangazonSite.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BangazonSite.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200121152245_AddedDateTime")]
+    partial class AddedDateTime
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +32,7 @@ namespace BangazonSite.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int?>("PaymentTypeId")
+                    b.Property<int>("PaymentTypeId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -40,14 +42,6 @@ namespace BangazonSite.Migrations
                     b.HasIndex("PaymentTypeId");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            PaymentTypeId = 3
-                        });
                 });
 
             modelBuilder.Entity("BangazonSite.Models.OrderProduct", b =>
@@ -70,14 +64,6 @@ namespace BangazonSite.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("OrderProducts");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            OrderId = 1,
-                            ProductId = 1
-                        });
                 });
 
             modelBuilder.Entity("BangazonSite.Models.PaymentType", b =>
@@ -102,15 +88,6 @@ namespace BangazonSite.Migrations
                     b.HasIndex("ApplicationUserId");
 
                     b.ToTable("PaymentTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 3,
-                            AccountNumber = 333,
-                            ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff",
-                            Name = "Amex"
-                        });
                 });
 
             modelBuilder.Entity("BangazonSite.Models.Product", b =>
@@ -164,21 +141,6 @@ namespace BangazonSite.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Products");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            City = "Huntington",
-                            DateCreated = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Description = "Cool Tech",
-                            LocalDelivery = true,
-                            Price = 500.0,
-                            ProductTypeId = 1,
-                            Quantity = 1,
-                            Title = "Computer",
-                            UserId = "00000000-ffff-ffff-ffff-ffffffffffff"
-                        });
                 });
 
             modelBuilder.Entity("BangazonSite.Models.ProductType", b =>
@@ -194,13 +156,6 @@ namespace BangazonSite.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Technology"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -432,13 +387,13 @@ namespace BangazonSite.Migrations
                         {
                             Id = "00000000-ffff-ffff-ffff-ffffffffffff",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ea8ab0c0-0ae2-43ee-aa45-089325d4a53a",
+                            ConcurrencyStamp = "1108712a-aefc-477f-afb8-df66ee71ca34",
                             Email = "admin@admin.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@ADMIN.COM",
                             NormalizedUserName = "ADMIN@ADMIN.COM",
-                            PasswordHash = "AQAAAAEAACcQAAAAEPTmQhSBiqBy06hEkjzC9Y3JX2FrwafQ13C1m6SmOno87TsJYQXkU3P3t2jh8nGQGg==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEL9KIT3etoFzUEYfZnnep5igAfUcTKT9i5veomhToLdsWWI2rM5Igh6u3+nCmtYcxA==",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "7f434309-a4d9-48e9-9ebb-8803db794577",
                             TwoFactorEnabled = false,
@@ -460,7 +415,8 @@ namespace BangazonSite.Migrations
                     b.HasOne("BangazonSite.Models.PaymentType", "PaymentType")
                         .WithMany("Orders")
                         .HasForeignKey("PaymentTypeId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BangazonSite.Models.OrderProduct", b =>
@@ -468,13 +424,13 @@ namespace BangazonSite.Migrations
                     b.HasOne("BangazonSite.Models.Order", "Order")
                         .WithMany("OrderProducts")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("BangazonSite.Models.Product", "Product")
                         .WithMany("OrderProducts")
                         .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
 
