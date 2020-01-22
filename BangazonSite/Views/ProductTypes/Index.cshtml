@@ -1,0 +1,36 @@
+﻿@model IEnumerable<BangazonSite.Models.ViewModels.IndexGroupProductsViewModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>All Product Categories</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Category
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @*@Html.DisplayFor(modelItem => PropertyType.Name)*@
+                <ul>
+                    <li>product 1 -will be a hyperlink to Product Detail Page</li>
+                </ul>
+            </td>
+            <td>
+                @*Show quantity here*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
