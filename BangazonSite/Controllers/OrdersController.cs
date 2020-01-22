@@ -82,7 +82,7 @@ namespace BangazonSite.Controllers
         public async Task<IActionResult> Edit(int? id)
         {
             OrderEditViewModel vm = new OrderEditViewModel();
-            vm.PaymentTypes = _context.Orders.Select(o => new SelectListItem
+            vm.PaymentTypes = _context.Orders.Where(o => o.PaymentType.Name != null).Select(o => new SelectListItem
             {
                 Value = o.PaymentType.Id.ToString(),
                 Text = o.PaymentType.Name
@@ -111,7 +111,7 @@ namespace BangazonSite.Controllers
                     // _context.Student.Remove(StudentExercises);
                     //add any student exercises to context
                     _context.Add(vm.PaymentTypes);
-                    _context.Update(vm.PaymentType);
+                    _context.Update(vm.PaymentType.Id);
                     await _context.SaveChangesAsync();
                 
                
@@ -119,7 +119,7 @@ namespace BangazonSite.Controllers
             }
             ViewData["Payment Type Id"] = new SelectList(_context.Orders, "Id", "Id", vm.PaymentType.Id);
             ViewData["Payment Type Name"] = new SelectList(_context.Orders, "Id", "Id", vm.PaymentType.Name);
-            return View(vm.PaymentType);
+            return View(vm);
         }
     
 
