@@ -65,7 +65,11 @@ namespace BangazonSite
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+               endpoints.MapControllerRoute("types", "types",
+    defaults: new { controller = "Products", action = "Types" });
             });
+
         }
+
     }
 }
