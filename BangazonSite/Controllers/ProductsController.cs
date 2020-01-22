@@ -9,6 +9,7 @@ using BangazonSite.Data;
 using BangazonSite.Models;
 using Microsoft.AspNetCore.Identity;
 using BangazonSite.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace BangazonSite.Controllers
 {
@@ -58,7 +59,8 @@ namespace BangazonSite.Controllers
         }
 
         // GET: Products/Create
-        public IActionResult Create(CreateStudentViewModel viewmodel)
+        [Authorize]
+        public async Task<IActionResult> Create()
         {
             CreateProductViewModel vm = new CreateProductViewModel();
             vm.ProductType = _context.ProductTypes.Select(pt => new SelectListItem
@@ -93,7 +95,7 @@ namespace BangazonSite.Controllers
                 
                 _context.Add(viewmodel.Product);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Details));
+                return RedirectToAction(nameof(Details), new { viewmodel.Product.Id });
             }
             //ViewData["UserId"] = new SelectList(_context.Users, "Id", "Id", product.UserId);
             return View(viewmodel);
