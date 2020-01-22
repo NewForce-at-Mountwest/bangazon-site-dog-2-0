@@ -67,7 +67,7 @@ namespace BangazonSite.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "ApplicationUserId", orderProduct.OrderId);
+            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "OrderId", orderProduct.OrderId);
             ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Description", orderProduct.ProductId);
             return View(orderProduct);
         }
@@ -85,8 +85,8 @@ namespace BangazonSite.Controllers
             {
                 return NotFound();
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "ApplicationUserId", orderProduct.OrderId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Description", orderProduct.ProductId);
+            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "OrderId", orderProduct.OrderId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", orderProduct.ProductId);
             return View(orderProduct);
         }
 
@@ -122,8 +122,8 @@ namespace BangazonSite.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "ApplicationUserId", orderProduct.OrderId);
-            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Description", orderProduct.ProductId);
+            ViewData["OrderId"] = new SelectList(_context.Orders, "Id", "OrderId", orderProduct.OrderId);
+            ViewData["ProductId"] = new SelectList(_context.Products, "Id", "Name", orderProduct.ProductId);
             return View(orderProduct);
         }
 
