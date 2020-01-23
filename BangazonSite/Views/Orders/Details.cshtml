@@ -1,0 +1,40 @@
+﻿@model BangazonSite.Models.Order
+
+@{
+    ViewData["Title"] = "";
+}
+
+<h1>Order @Html.DisplayFor(model => model.Id)</h1>
+
+<Table class="table table-dark">
+    <thead>
+    <tr>
+        <th scope="col">
+        @Html.DisplayNameFor(model => model.OrderProducts) 
+        </th>
+        <th scope="col">Quantity</th>
+        <th scope="col">Price</th>
+    </tr>      
+    </thead>
+    <tbody>
+        @if (Model.PaymentType == null)
+        {
+            foreach (OrderProduct orderProduct in Model.OrderProducts)
+            {
+                //if (Model.PaymentType == null)
+                //{
+            <tr>
+                <td>@Html.DisplayFor(model => orderProduct.Product.Title)</td>
+                <td>@Html.DisplayFor(model => orderProduct.Product.Quantity)</td>
+                <td>@Html.DisplayFor(model => orderProduct.Product.Price)</td>
+            </tr>
+
+            }
+        }
+    </tbody>
+</Table>
+<a asp-action="Edit" asp-route-id="@Model.Id">
+    <button class="btn btn-primary">Checkout</button></a>
+    <div>|
+    <a asp-action="Index">Back to List</a>
+</div>

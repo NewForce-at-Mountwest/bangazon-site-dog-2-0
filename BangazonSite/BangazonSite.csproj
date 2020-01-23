@@ -12,6 +12,24 @@
     <Compile Remove="Migrations\20200117151917_TableSetup.Designer.cs" />
     <Compile Remove="Migrations\20200117162242_FixIdentityId.cs" />
     <Compile Remove="Migrations\20200117162242_FixIdentityId.Designer.cs" />
+    <Compile Remove="Migrations\20200120143249_SeedProducts.cs" />
+    <Compile Remove="Migrations\20200120143249_SeedProducts.Designer.cs" />
+    <Compile Remove="Migrations\20200120155634_SeedData.cs" />
+    <Compile Remove="Migrations\20200120155634_SeedData.Designer.cs" />
+    <Compile Remove="Migrations\20200120160653_SeedData.cs" />
+    <Compile Remove="Migrations\20200120160653_SeedData.Designer.cs" />
+    <Compile Remove="Migrations\20200120160805_JacobSeedData.cs" />
+    <Compile Remove="Migrations\20200120160805_JacobSeedData.Designer.cs" />
+    <Compile Remove="Migrations\20200120161717_SeedDataJacob.cs" />
+    <Compile Remove="Migrations\20200120161717_SeedDataJacob.Designer.cs" />
+    <Compile Remove="Migrations\20200120161842_SeedDataJacob.cs" />
+    <Compile Remove="Migrations\20200120161842_SeedDataJacob.Designer.cs" />
+    <Compile Remove="Migrations\20200120162111_SeedDataJacob.cs" />
+    <Compile Remove="Migrations\20200120162111_SeedDataJacob.Designer.cs" />
+    <Compile Remove="Migrations\20200120162425_SeedDataJacob.cs" />
+    <Compile Remove="Migrations\20200120162425_SeedDataJacob.Designer.cs" />
+    <Compile Remove="Migrations\20200120162627_SeedDataJacob.cs" />
+    <Compile Remove="Migrations\20200120162627_SeedDataJacob.Designer.cs" />
   </ItemGroup>
 
 

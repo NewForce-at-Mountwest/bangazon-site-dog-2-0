@@ -46,7 +46,14 @@ namespace BangazonSite.Data
             modelBuilder.Entity<PaymentType>().HasMany(paymentType => paymentType.Orders)
                         .WithOne(orders => orders.PaymentType)
                         .OnDelete(DeleteBehavior.Restrict);
-            
+
+            //modelBuilder.Entity<Product>().HasMany(product => product.OrderProducts)
+            //           .WithOne(orderProducts => orderProducts.Product)
+            //           .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>().HasMany(order => order.OrderProducts)
+                         .WithOne(orderProducts => orderProducts.Order)
+                         .OnDelete(DeleteBehavior.Restrict);
             modelBuilder.Entity<Product>().HasMany(product => product.OrderProducts)
                        .WithOne(orderProducts => orderProducts.Product)
                        .OnDelete(DeleteBehavior.Restrict);
@@ -54,8 +61,60 @@ namespace BangazonSite.Data
             modelBuilder.Entity<Product>()
                 .Property(D => D.DateCreated)
                 .HasDefaultValueSql("GETDATE()");
+
+            modelBuilder.Entity<ProductType>().HasData(
+            new ProductType()
+            {
+                Id = 1,
+                Name = "Technology"
+            });
+
+            modelBuilder.Entity<Product>().HasData(
+                new Product()
+                {
+                    Id = 1,
+                    DateCreated = new DateTime(2020, 01, 01),
+                    Description = "Cool Tech",
+                    Title = "Computer",
+                    Price = 500.00,
+                    Quantity = 1,
+                    UserId = "00000000-ffff-ffff-ffff-ffffffffffff",
+                    City = "Huntington",
+                    LocalDelivery = true,
+                    ProductTypeId = 1
+                });
+            modelBuilder.Entity<PaymentType>().HasData(
+                new PaymentType()
+                {
+                    Id = 3,
+                    AccountNumber = 333,
+                    Name = "Amex",
+                    ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+                });
+
+            modelBuilder.Entity<Order>().HasData(
+            new Order()
+            {
+                Id = 1,
+                PaymentTypeId = 3,
+                ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+            });
+            //new Order()
+            //{
+            //    Id = 2,
+            //    PaymentTypeId = null,
+            //    ApplicationUserId = "00000000-ffff-ffff-ffff-ffffffffffff"
+            //};
+
+            modelBuilder.Entity<OrderProduct>().HasData(
+            new OrderProduct()
+            {
+                Id = 1,
+                OrderId = 1,
+                ProductId = 1
+            });
         }
-        
+
 
 
     }
