@@ -39,11 +39,11 @@ namespace BangazonSite.Controllers
             List<Product> products = await _context.Products.Where(p => p.User == loggedInUser).ToListAsync();
             if (searchQuery != null)
             {
-                products = products.Where(product => product.Title.ToString().Contains(searchQuery) || product.Description.ToString().Contains(searchQuery)).ToList();
+                products = products.Where(product => product.Title.ToString().Contains(searchQuery, StringComparison.OrdinalIgnoreCase) || product.Description.ToString().Contains(searchQuery, StringComparison.OrdinalIgnoreCase)).ToList();
             }
            else if (citySearch != null)
             {
-                products = products.Where(product => product.City != null && product.City.ToString().Contains(citySearch)).ToList();
+                products = products.Where(product => product.City != null && product.City.ToString().Contains(citySearch, StringComparison.OrdinalIgnoreCase)).ToList();
             }
             return View(products);
         }
